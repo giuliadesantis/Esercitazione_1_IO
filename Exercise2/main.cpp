@@ -34,6 +34,7 @@ int main()
 	double mean = 0.0;
 	unsigned int k = 0;
 	double x = 0.0;
+	ofs << "# N Mean" << std::endl;
 	while (file >> val) { 
         	x = map_values(val);
 		mean = (mean * k + x)/(k+1);
