@@ -10,7 +10,7 @@ double map_values(double x){
 	int b = 5;
 	int c = -1;
 	int d = 2;
-	return [(c-d)*x+a*d-b*c]/(a-b); // la formula da [a,b] a [c,d] sarebbe: x' = [(c-d)*x+a*d-b*c]/(a-b)
+	return ((c-d)*x+a*d-b*c)/(a-b); // la formula da [a,b] a [c,d] sarebbe: x' = [(c-d)*x+a*d-b*c]/(a-b)
 }
 
 int main()
@@ -21,24 +21,28 @@ int main()
 		std::cerr << "errore nell'apertura del file" << std::endl;
 		return 1;
 	}
+
+	
+	std::string fileOutput = "result.txt"; //crea il file di output
+	std::ofstream ofs(fileOutput);
+	if (!ofs) { // Controllo se il file di output si apre correttamente
+        	std::cerr << "Errore nell'apertura del file result.txt" << std::endl;
+        	return 1;
+    	}
+
 	double val; //creo variabile ausiliaria dove vado a memorizzare i valori letti dal file
 	double mean = 0.0;
 	unsigned int k = 0;
 	double x = 0.0;
-	while (file >> val) 
-	{ 
-        x = map_values(val);
+	while (file >> val) { 
+        	x = map_values(val);
 		mean = (mean * k + x)/(k+1);
-		std :: cout << std::scientific << std::setprecision(16) << mean << std::endl;
+		ofs << std::scientific << std::setprecision(16) << mean << std::endl;
+				
 		k++;
 	}
 	file.close();
-    return 0;
+	ofs.close();
+	
+    	return 0;
 }
-
-
-
-
-
-
-
